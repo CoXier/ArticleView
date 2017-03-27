@@ -1,5 +1,6 @@
 package com.hackerli.library.itemdrag;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -21,16 +22,18 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        int dragFlags = ItemTouchHelper.DOWN | ItemTouchHelper.UP|ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT;
-        int swipeFlags = ItemTouchHelper.LEFT;
-        return makeMovementFlags(dragFlags,swipeFlags);
+        int dragFlags = ItemTouchHelper.DOWN | ItemTouchHelper.UP | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        int swipeFlags = 0;
+        return makeMovementFlags(dragFlags, swipeFlags);
     }
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        Log.d(TAG,"onMove");
-        mAdapter.onItemMove(viewHolder.getAdapterPosition(),target.getAdapterPosition());
-        return true;
+        Log.d(TAG, "onMove");
+        if(viewHolder.getItemViewType() != target.getItemViewType()) return false;
+        int oldPos = viewHolder.getAdapterPosition();
+        int targetPos = target.getAdapterPosition();
+        return mAdapter.onItemMove(oldPos, targetPos);
     }
 
     @Override
@@ -40,6 +43,22 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean isLongPressDragEnabled() {
-        return true;
+        return false;
+    }
+
+    @Override
+    public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+        Log.d(TAG, "onSelectedChanged");
+        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+            viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
+        }
+        super.onSelectedChanged(viewHolder, actionState);
+    }
+
+    @Override
+    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        Log.d(TAG, "clearView");
+        super.clearView(recyclerView, viewHolder);
+        viewHolder.itemView.setBackgroundColor(0);
     }
 }

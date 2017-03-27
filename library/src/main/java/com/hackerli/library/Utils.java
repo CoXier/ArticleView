@@ -29,9 +29,10 @@ class Utils {
             char c = s.charAt(end);
             while (c != ' ' && c != '.' && c != ',' && c != '!' && c != '?' && c != '"' && c != ':') {
                 end++;
+                if (end == s.length()) break;
                 c = s.charAt(end);
             }
-            if (s.charAt(end) != ' ') {
+            if (end < s.length() && s.charAt(end) != ' ') {
                 list.add(s.substring(start, end + 1 > s.length() ? s.length() : end + 1));
             } else {
                 list.add(s.substring(start, end));
