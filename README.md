@@ -29,10 +29,14 @@ If you want item can be dragged,please add below code:
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mArticleView);
+
+        // let your activity to implement WordLongClickListener interface
+        mAdapter.setWordLongClickListener(this);
 ```
 
+
 #### Style
-`ArticleView` also support custom settings like font size and font color.You can set them using xml:
+`ArticleView` also support custom settings such as font size and font color.You can set them using xml:
 
 ```java
     <com.hackerli.library.ArticleView
