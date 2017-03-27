@@ -1,5 +1,6 @@
 ## ArticleView
 ArticleView can display article using RecyclerView.
+<img src="/screenshot/s.jpg" alt="screenshot" title="screenshot" width="396" height="650" />
 
 ## Usage
 
