@@ -19,9 +19,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.WordHold
     private int mFontColor;
     private float mFontSize;
 
-    public static int WORD = 0;
-    public static int NEW_LINE = 1;
-    static int SPACE = 2;
+    private static int WORD = 0;
+    private static int NEW_LINE = 1;
+    private static int SPACE = 2;
 
     private WordLongClickListener mWordLongClickListener;
 
@@ -92,6 +92,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.WordHold
         mFontColor = ((ArticleView) recyclerView).getFontColor();
         mFontSize = ((ArticleView) recyclerView).getFontSize();
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public List<String> getWordList() {
+        return mWordList;
     }
 
     class WordHolder extends RecyclerView.ViewHolder {
