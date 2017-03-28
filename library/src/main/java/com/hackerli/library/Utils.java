@@ -34,7 +34,7 @@ class Utils {
             }
             if (end < s.length() && s.charAt(end) != ' ') {
                 list.add(s.substring(start, end + 1 > s.length() ? s.length() : end + 1));
-            } else {
+            } else if(end > start){
                 list.add(s.substring(start, end));
             }
             end++;
